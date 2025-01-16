@@ -1,22 +1,25 @@
-import org.hawoline.domain.ActualWord;
-import org.hawoline.domain.Gallows;
+import org.hawoline.domain.RightLettersInWord;
+import org.hawoline.domain.LoseCondition;
 import org.hawoline.domain.GameState;
 import org.hawoline.domain.Keyboard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class GameStateTest {
-  private Gallows gallows;
+  private LoseCondition loseCondition;
   private Keyboard keyboard;
-  private ActualWord actualWord;
+  private RightLettersInWord rightLettersInWord;
   private GameState gameState;
+  private static final String SOME_FOOD_WORD_FOR_TEST = "Potato";
 
   @BeforeEach
   void setUp() {
-    gallows = new Gallows(0);
+    loseCondition = new LoseCondition(0);
     keyboard = new Keyboard();
-    actualWord = new ActualWord("Potato");
-    gameState = new GameState(gallows, keyboard, actualWord);
+    rightLettersInWord = new RightLettersInWord(SOME_FOOD_WORD_FOR_TEST);
+    gameState = new GameState(loseCondition, keyboard, rightLettersInWord);
   }
 
   @Test
@@ -24,7 +27,7 @@ public class GameStateTest {
     /*
     Алгоритм работы игры:
     1. Вводим букву
-    2. Проверяем существует буква?:
+    2. Проверяем существует буква? + A
     2.1 Существует.
     - Открыть букву в слове
     - Проверить, победил игрок?:
@@ -44,5 +47,7 @@ public class GameStateTest {
     1. Победа
     2. Проигрыш
      */
+    assertEquals("......", gameState.getRightLettersInWord().getCurrentWord());
+    //assertEquals(gameState.getLoseCondition(), );
   }
 }

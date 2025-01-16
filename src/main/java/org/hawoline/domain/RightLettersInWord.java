@@ -1,13 +1,13 @@
 package org.hawoline.domain;
 
-public final class ActualWord {
+public final class RightLettersInWord {
   private final String rightWord;
   private final String currentWord;
 
-  public ActualWord(final String rightWord) {
+  public RightLettersInWord(final String rightWord) {
     this(rightWord, rightWord.replaceAll("\\D", "."));
   }
-  private ActualWord(final String rightWord, final String currentWord) {
+  private RightLettersInWord(final String rightWord, final String currentWord) {
     this.rightWord = rightWord.toLowerCase();
     this.currentWord = currentWord;
   }
@@ -16,14 +16,14 @@ public final class ActualWord {
     return currentWord;
   }
 
-  public ActualWord performOpenLetter(final char letter) {
+  public RightLettersInWord performOpenLetter(final char letter) {
     if (!letterExistsInRightWord(letter) || isWin() || letterExistsInCurrentWord(letter)) {
       return this;
     }
     return wordWithOpenedLetter(letter);
   }
 
-  private ActualWord wordWithOpenedLetter(char letter) {
+  private RightLettersInWord wordWithOpenedLetter(char letter) {
     final char[] rightWordChars = rightWord.toCharArray();
     final char[] currentWordLetters = currentWord.toCharArray();
     final char lowerCaseLetter = Character.toLowerCase(letter);
@@ -34,7 +34,7 @@ public final class ActualWord {
     }
 
     final String result = new String(currentWordLetters);
-    return new ActualWord(rightWord, result);
+    return new RightLettersInWord(rightWord, result);
   }
 
   private boolean letterExistsInRightWord(final char letter) {

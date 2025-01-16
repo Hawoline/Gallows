@@ -3,30 +3,25 @@ package org.hawoline.domain;
 import java.util.Scanner;
 
 public final class GameState {
-  private final Gallows gallows;
+  private final LoseCondition loseCondition;
   private final Keyboard keyboard;
-  private final ActualWord actualWord;
+  private final RightLettersInWord rightLettersInWord;
 
-  public GameState(Gallows gallows, Keyboard keyboard, ActualWord actualWord) {
-    this.gallows = gallows;
+  public GameState(LoseCondition loseCondition, Keyboard keyboard, RightLettersInWord rightLettersInWord) {
+    this.loseCondition = loseCondition;
     this.keyboard = keyboard;
-    this.actualWord = actualWord;
+    this.rightLettersInWord = rightLettersInWord;
   }
 
-  public Gallows getGallows() {
-    return gallows;
+  public LoseCondition getLoseCondition() {
+    return loseCondition;
   }
 
   public Keyboard getKeyboard() {
     return keyboard;
   }
 
-  public ActualWord getActualWord() {
-    return actualWord;
-  }
-
-  public void readLetter() {
-    Scanner scanner = new Scanner(System.in);
-    char letter = scanner.next().charAt(0);
+  public RightLettersInWord getRightLettersInWord() {
+    return rightLettersInWord;
   }
 }
