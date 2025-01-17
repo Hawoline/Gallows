@@ -35,9 +35,6 @@ public final class GameState {
       LoseCondition addedMistake = loseCondition.addMistake();
       return new GameState(addedMistake, keyboardWithTappedLetter, rightLettersInWordAfterTap);
     }
-    if (rightLettersInWordAfterTap.rightWordEqualsCurrentWord()) {
-      return this; // win
-    }
 
     return new GameState(loseCondition, keyboardWithTappedLetter, rightLettersInWordAfterTap);
   }

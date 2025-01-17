@@ -14,7 +14,7 @@ public class GameStateTest {
   private Keyboard keyboard;
   private RightLettersInWord rightLettersInWord;
   private GameState gameState;
-  private static final String SOME_FOOD_WORD_FOR_TEST = "Potato";
+  private static final String SOME_FOOD_WORD_FOR_TEST = "potato";
 
   @BeforeEach
   void setUp() {
@@ -69,5 +69,22 @@ public class GameStateTest {
     assertEquals("......", fifthFalseLetterTappedState.getRightLettersInWord().getCurrentWord());
     assertEquals(5, fifthFalseLetterTappedState.getLoseCondition().getCountOfMistakes());
     assertTrue(fifthFalseLetterTappedState.getLoseCondition().isPlayerLose());
+  }
+
+  @Test
+  public void testWin() {
+    final char letterP = 'p';
+    GameState firstTrueLetterTappedState = gameState.tap(letterP);
+    assertFalse(firstTrueLetterTappedState.getLoseCondition().isPlayerLose());
+    final char letterO = 'o';
+    GameState secondTrueLetterTappedState = firstTrueLetterTappedState.tap(letterO);
+    assertFalse(secondTrueLetterTappedState.getLoseCondition().isPlayerLose());
+    final char letterT = 't';
+    GameState thirdTrueLetterTappedState = secondTrueLetterTappedState.tap(letterT);
+    assertFalse(thirdTrueLetterTappedState.getLoseCondition().isPlayerLose());
+    final char letterA = 'a';
+    GameState fourthTrueLetterTappedState = thirdTrueLetterTappedState.tap(letterA);
+    assertFalse(fourthTrueLetterTappedState.getLoseCondition().isPlayerLose());
+    assertEquals(SOME_FOOD_WORD_FOR_TEST, fourthTrueLetterTappedState.getRightLettersInWord().getCurrentWord());
   }
 }
