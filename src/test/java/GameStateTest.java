@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GameStateTest {
   private LoseCondition loseCondition;
@@ -23,7 +25,7 @@ public class GameStateTest {
   }
 
   @Test
-  public void test() {
+  public void testLoseCondition() {
     /*
     Алгоритм работы игры:
     1. Вводим букву
@@ -42,12 +44,30 @@ public class GameStateTest {
     1. Введенная буква
     2. Само скрытое слово
     3. Количество ошибок
+    4. Игрок победил или нет
 
     Также результат игры:
     1. Победа
     2. Проигрыш
      */
     assertEquals("......", gameState.getRightLettersInWord().getCurrentWord());
-    //assertEquals(gameState.getLoseCondition(), );
+    assertFalse(gameState.getLoseCondition().isPlayerLose());
+    final char letterF = 'f';
+    GameState firstFalseLetterTappedState = gameState.tap(letterF);
+    assertFalse(firstFalseLetterTappedState.getLoseCondition().isPlayerLose());
+    final char letterB = 'b';
+    GameState secondFalseLetterTappedState = firstFalseLetterTappedState.tap(letterB);
+    assertFalse(secondFalseLetterTappedState.getLoseCondition().isPlayerLose());
+    final char letterC = 'c';
+    GameState thirdFalseLetterTappedState = secondFalseLetterTappedState.tap(letterC);
+    assertFalse(thirdFalseLetterTappedState.getLoseCondition().isPlayerLose());
+    final char letterD = 'd';
+    GameState fourthFalseLetterTappedState = thirdFalseLetterTappedState.tap(letterD);
+    assertFalse(fourthFalseLetterTappedState.getLoseCondition().isPlayerLose());
+    final char letterE = 'e';
+    GameState fifthFalseLetterTappedState = fourthFalseLetterTappedState.tap(letterE);
+    assertEquals("......", fifthFalseLetterTappedState.getRightLettersInWord().getCurrentWord());
+    assertEquals(5, fifthFalseLetterTappedState.getLoseCondition().getCountOfMistakes());
+    assertTrue(fifthFalseLetterTappedState.getLoseCondition().isPlayerLose());
   }
 }

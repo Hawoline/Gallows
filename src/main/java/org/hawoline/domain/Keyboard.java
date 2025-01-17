@@ -23,6 +23,6 @@ public final class Keyboard {
   }
 
   public boolean isLetterTapped(char letter) {
-    return currentAlphabet.contains(String.valueOf(letter));
+    return !currentAlphabet.contains(String.valueOf(letter));
   }
 }

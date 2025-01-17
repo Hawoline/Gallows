@@ -24,11 +24,11 @@ public class LoseConditionTest {
         mistakesWithThreeLoseCondition = mistakesWithTwoLoseCondition.addMistake();
     assertEquals(3, mistakesWithThreeLoseCondition.getCountOfMistakes());
     assertFalse(mistakesWithThreeLoseCondition.isPlayerLose());
-    LoseCondition mistakesWithFourLoseCondition = mistakesWithThreeLoseCondition.addMistake();
-    assertEquals(4, mistakesWithFourLoseCondition.getCountOfMistakes());
-    assertFalse(mistakesWithFourLoseCondition.isPlayerLose());
+    LoseCondition loseConditionWithFourMistakes = mistakesWithThreeLoseCondition.addMistake();
+    assertEquals(4, loseConditionWithFourMistakes.getCountOfMistakes());
+    assertFalse(loseConditionWithFourMistakes.isPlayerLose());
     LoseCondition
-        playerLose = mistakesWithFourLoseCondition.addMistake();
+        playerLose = loseConditionWithFourMistakes.addMistake();
     assertEquals(5, playerLose.getCountOfMistakes());
     assertTrue(playerLose.isPlayerLose());
   }

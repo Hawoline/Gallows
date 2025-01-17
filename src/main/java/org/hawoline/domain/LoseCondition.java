@@ -28,10 +28,10 @@ public final class LoseCondition {
     if (countOfMistakes < 0) {
       return new LoseCondition(0);
     }
-    if (countOfMistakes > MAX_MISTAKES_COUNT - 2) {
+    final int count = countOfMistakes + 1;
+    if (count > MAX_MISTAKES_COUNT - 1) {
       return new LoseCondition(MAX_MISTAKES_COUNT, true);
     }
-    final int count = countOfMistakes + 1;
     return new LoseCondition(count);
   }
 }

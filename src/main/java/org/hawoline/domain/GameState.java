@@ -24,4 +24,21 @@ public final class GameState {
   public RightLettersInWord getRightLettersInWord() {
     return rightLettersInWord;
   }
+
+  public GameState tap(char letter) {
+    if (keyboard.isLetterTapped(letter)) {
+      return this;
+    }
+    final Keyboard keyboardWithTappedLetter = keyboard.tapLetter(letter);
+    final RightLettersInWord rightLettersInWordAfterTap = rightLettersInWord.performOpenLetter(letter);
+    if (rightLettersInWordAfterTap.getCurrentWord().equals(rightLettersInWord.getCurrentWord())) {
+      LoseCondition addedMistake = loseCondition.addMistake();
+      return new GameState(addedMistake, keyboardWithTappedLetter, rightLettersInWordAfterTap);
+    }
+    if (rightLettersInWordAfterTap.rightWordEqualsCurrentWord()) {
+      return this; // win
+    }
+
+    return new GameState(loseCondition, keyboardWithTappedLetter, rightLettersInWordAfterTap);
+  }
 }
