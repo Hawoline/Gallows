@@ -1,5 +1,7 @@
 package org.hawoline.presentation;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,75 +12,22 @@ import org.hawoline.domain.LoseCondition;
 import org.hawoline.domain.RightLettersInWord;
 
 public class Main {
-  private static final int START_NEW_GAME = 0;
-  private static final int EXIT_GAME = 1;
-  private static List<String> words = new ArrayList<>();
 
   public static void main(String[] args) {
-    words.add("ant");
-    words.add("baboon");
-    words.add("badger");
-    words.add("bat");
-    words.add("bear");
-    words.add("beaver");
-    words.add("camel");
-    words.add("cat");
-    words.add("clam");
-    words.add("cobra");
-    words.add("cougar");
-    words.add("coyote");
-    words.add("crow");
-    words.add("deer");
-    words.add("dog");
-    words.add("donkey");
-    words.add("duck");
-    words.add("eagle");
-    words.add("ferret");
-    words.add("fox");
-    words.add("frog");
-    words.add("goat");
-    words.add("goose");
-    words.add("hawk");
-    words.add("lion");
-    words.add("lizard");
-    words.add("llama");
-    words.add("mole");
-    words.add("monkey");
-    words.add("moose");
-    words.add("mouse");
-    words.add("mule");
-    words.add("newt");
-    words.add("otter");
-    words.add("owl");
-    words.add("panda");
-    words.add("parrot");
-    words.add("pigeon");
-    words.add("python");
-    words.add("rabbit");
-    words.add("ram");
-    words.add("rat");
-    words.add("raven");
-    words.add("rhino");
-    words.add("salmon");
-    words.add("seal");
-    words.add("shark");
-    words.add("sheep");
-    words.add("skunk");
-    words.add("sloth");
-    words.add("snake");
-    words.add("spider");
-    words.add("stork");
-    words.add("swan");
-    words.add("tiger");
-    words.add("toad");
-    words.add("trout");
-    words.add("turkey");
-    words.add("turtle");
-    words.add("weasel");
-    words.add("whale");
-    words.add("wolf");
-    words.add("wombat");
-    words.add("zebra");
+    List<String> words = new ArrayList<>();
+    try {
+      File myObj = new File("words.txt");
+      System.out.println(myObj.getAbsolutePath());
+      Scanner myReader = new Scanner(myObj);
+      while (myReader.hasNextLine()) {
+        String data = myReader.nextLine();
+        words.add(data);
+      }
+      myReader.close();
+    } catch (FileNotFoundException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
     Scanner scanner = new Scanner(System.in);
     LoseCondition loseCondition;
     Keyboard keyboard;
