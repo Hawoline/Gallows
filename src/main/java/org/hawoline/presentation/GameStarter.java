@@ -42,7 +42,8 @@ public class GameStarter {
       int statesCount = 0;
       while (true) {
         System.out.println("Введите букву для отгадки:");
-        if (scanner.hasNext("[a-z]+")) {
+        final String oneOrMoreEnglishLettersPattern = "[a-z]+";
+        if (scanner.hasNext(oneOrMoreEnglishLettersPattern)) {
           char ch = scanner.next().charAt(0);
           GameState newGameState = gameStates.get(statesCount++).nextState(ch);
           if (newGameState.getLoseCondition().isPlayerLose()) {
