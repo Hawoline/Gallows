@@ -1,7 +1,5 @@
 package org.hawoline.domain;
 
-import java.util.Scanner;
-
 public final class GameState {
   private final LoseCondition loseCondition;
   private final Keyboard keyboard;
@@ -25,7 +23,7 @@ public final class GameState {
     return rightLettersInWord;
   }
 
-  public GameState tap(char letter) {
+  public GameState nextState(char letter) {
     if (keyboard.isLetterTapped(letter)) {
       return this;
     }

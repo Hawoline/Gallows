@@ -17,7 +17,7 @@ public final class RightLettersInWord {
   }
 
   public RightLettersInWord performOpenLetter(final char letter) {
-    if (!letterExistsInRightWord(letter) || isWin() || letterExistsInCurrentWord(letter)) {
+    if (!letterExistsInRightWord(letter) || rightWordEqualsCurrentWord() || letterExistsInCurrentWord(letter)) {
       return this;
     }
     return wordWithOpenedLetter(letter);
@@ -47,10 +47,6 @@ public final class RightLettersInWord {
     char lowerCaseLetter = Character.toLowerCase(letter);
     int lastIndexOfLetter = currentWord.lastIndexOf(lowerCaseLetter);
     return lastIndexOfLetter != -1;
-  }
-
-  private boolean isWin() {
-    return rightWord.equals(currentWord);
   }
 
   public boolean rightWordEqualsCurrentWord() {

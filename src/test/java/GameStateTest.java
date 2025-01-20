@@ -53,19 +53,19 @@ public class GameStateTest {
     assertEquals("......", gameState.getRightLettersInWord().getCurrentWord());
     assertFalse(gameState.getLoseCondition().isPlayerLose());
     final char letterF = 'f';
-    GameState firstFalseLetterTappedState = gameState.tap(letterF);
+    GameState firstFalseLetterTappedState = gameState.nextState(letterF);
     assertFalse(firstFalseLetterTappedState.getLoseCondition().isPlayerLose());
     final char letterB = 'b';
-    GameState secondFalseLetterTappedState = firstFalseLetterTappedState.tap(letterB);
+    GameState secondFalseLetterTappedState = firstFalseLetterTappedState.nextState(letterB);
     assertFalse(secondFalseLetterTappedState.getLoseCondition().isPlayerLose());
     final char letterC = 'c';
-    GameState thirdFalseLetterTappedState = secondFalseLetterTappedState.tap(letterC);
+    GameState thirdFalseLetterTappedState = secondFalseLetterTappedState.nextState(letterC);
     assertFalse(thirdFalseLetterTappedState.getLoseCondition().isPlayerLose());
     final char letterD = 'd';
-    GameState fourthFalseLetterTappedState = thirdFalseLetterTappedState.tap(letterD);
+    GameState fourthFalseLetterTappedState = thirdFalseLetterTappedState.nextState(letterD);
     assertFalse(fourthFalseLetterTappedState.getLoseCondition().isPlayerLose());
     final char letterE = 'e';
-    GameState fifthFalseLetterTappedState = fourthFalseLetterTappedState.tap(letterE);
+    GameState fifthFalseLetterTappedState = fourthFalseLetterTappedState.nextState(letterE);
     assertEquals("......", fifthFalseLetterTappedState.getRightLettersInWord().getCurrentWord());
     assertEquals(5, fifthFalseLetterTappedState.getLoseCondition().getCountOfMistakes());
     assertTrue(fifthFalseLetterTappedState.getLoseCondition().isPlayerLose());
@@ -74,16 +74,16 @@ public class GameStateTest {
   @Test
   public void testWinCondition() {
     final char letterP = 'p';
-    GameState firstTrueLetterTappedState = gameState.tap(letterP);
+    GameState firstTrueLetterTappedState = gameState.nextState(letterP);
     assertFalse(firstTrueLetterTappedState.getLoseCondition().isPlayerLose());
     final char letterO = 'o';
-    GameState secondTrueLetterTappedState = firstTrueLetterTappedState.tap(letterO);
+    GameState secondTrueLetterTappedState = firstTrueLetterTappedState.nextState(letterO);
     assertFalse(secondTrueLetterTappedState.getLoseCondition().isPlayerLose());
     final char letterT = 't';
-    GameState thirdTrueLetterTappedState = secondTrueLetterTappedState.tap(letterT);
+    GameState thirdTrueLetterTappedState = secondTrueLetterTappedState.nextState(letterT);
     assertFalse(thirdTrueLetterTappedState.getLoseCondition().isPlayerLose());
     final char letterA = 'a';
-    GameState fourthTrueLetterTappedState = thirdTrueLetterTappedState.tap(letterA);
+    GameState fourthTrueLetterTappedState = thirdTrueLetterTappedState.nextState(letterA);
     assertFalse(fourthTrueLetterTappedState.getLoseCondition().isPlayerLose());
     assertEquals(SOME_FOOD_WORD_FOR_TEST, fourthTrueLetterTappedState.getRightLettersInWord().getCurrentWord());
   }
@@ -92,16 +92,16 @@ public class GameStateTest {
   @Test
   public void testAgainTappedLetter() {
     final char letterP = 'p';
-    GameState firstTrueLetterTappedState = gameState.tap(letterP);
+    GameState firstTrueLetterTappedState = gameState.nextState(letterP);
     assertFalse(firstTrueLetterTappedState.getLoseCondition().isPlayerLose());
-    GameState firstTrueLetterTappedAgainState = gameState.tap(letterP);
+    GameState firstTrueLetterTappedAgainState = gameState.nextState(letterP);
     assertFalse(firstTrueLetterTappedAgainState.getLoseCondition().isPlayerLose());
     assertEquals(0, firstTrueLetterTappedAgainState.getLoseCondition().getCountOfMistakes());
     assertEquals("p.....", firstTrueLetterTappedAgainState.getRightLettersInWord().getCurrentWord());
 
     final char letterI = 'i';
-    GameState firstFalseLetterTappedState = firstTrueLetterTappedAgainState.tap(letterI);
-    GameState firstFalseLetterTappedAgainState = firstFalseLetterTappedState.tap(letterI);
+    GameState firstFalseLetterTappedState = firstTrueLetterTappedAgainState.nextState(letterI);
+    GameState firstFalseLetterTappedAgainState = firstFalseLetterTappedState.nextState(letterI);
     assertFalse(firstFalseLetterTappedAgainState.getLoseCondition().isPlayerLose());
     assertEquals(1, firstFalseLetterTappedAgainState.getLoseCondition().getCountOfMistakes());
     assertEquals("p.....", firstFalseLetterTappedAgainState.getRightLettersInWord().getCurrentWord());
