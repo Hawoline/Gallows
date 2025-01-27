@@ -28,13 +28,11 @@ public class GameStarter {
       gameState = new GameState(loseCondition, keyboard, rightLettersInWord);
       List<GameState> gameStates = new ArrayList<>();
       gameStates.add(gameState);
-      System.out.println("Вы хотите начать новую игру или выйти?");
+      System.out.println("------------------------------\n"
+          + "Вы хотите начать новую игру или выйти?");
       System.out.println("0 - Начать новую игру.");
       System.out.println("Любая другая клавиша - Выйти.");
       if (!scanner.hasNextInt() || scanner.nextInt() != 0) {
-        System.out.println("Вы хотите начать новую игру или выйти?");
-        System.out.println("0 - Начать новую игру.");
-        System.out.println("Любая другая клавиша - Выйти.");
         break;
       }
       int statesCount = 0;
@@ -46,6 +44,7 @@ public class GameStarter {
           GameState newGameState = gameStates.get(statesCount++).nextState(ch);
           if (newGameState.getLoseCondition().isPlayerLose()) {
             System.out.println("Вы проиграли");
+            System.out.println("Загаданное слово: " + newGameState.getRightLettersInWord().getRightWord());
             break;
           }
           if (newGameState.getRightLettersInWord().rightWordEqualsCurrentWord()) {

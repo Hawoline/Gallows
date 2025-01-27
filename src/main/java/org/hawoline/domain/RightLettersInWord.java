@@ -12,6 +12,10 @@ public final class RightLettersInWord {
     this.currentWord = currentWord;
   }
 
+  public String getRightWord() {
+    return rightWord;
+  }
+
   public String getCurrentWord() {
     return currentWord;
   }
