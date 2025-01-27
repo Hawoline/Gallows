@@ -12,8 +12,8 @@ import org.hawoline.domain.RightLettersInWord;
 
 public class GameStarter {
   public void start() {
-    WordsRepository repository = new WordsRepository("words.txt");
-    List<String> words = repository.readWords();
+    WordsRepository wordsRepository = new WordsRepository("words.txt");
+    List<String> words = wordsRepository.readWords();
     Scanner scanner = new Scanner(System.in);
     LoseCondition loseCondition;
     Keyboard keyboard;
@@ -56,9 +56,11 @@ public class GameStarter {
           System.out.println("Количество ошибок: " + newGameState.getLoseCondition().getCountOfMistakes());
           gameStates.add(newGameState);
         } else {
+          scanner.next();
           System.out.println("Вы ввели неверную букву.");
         }
       }
     }
+    scanner.close();
   }
 }
