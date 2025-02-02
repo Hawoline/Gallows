@@ -20,6 +20,8 @@ public class GameStarter {
     RightLettersInWord rightLettersInWord;
     GameState gameState;
 
+    System.out.println("Привет! Добро пожаловать в игру «Виселица»! Твоя задача – угадать английское"
+        + " слово. У тебя есть всего 5 попыток. Готов? Тогда начнем!");
     while(true) {
       loseCondition = new LoseCondition(0);
       keyboard = new Keyboard();
