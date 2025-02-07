@@ -3,7 +3,7 @@ package org.hawoline.domain;
 public final class LoseCondition {
   private final int countOfMistakes;
   private final boolean playerLose;
-  private static final int MAX_MISTAKES_COUNT = 5;
+  public static final int MAX_MISTAKES_COUNT = 7;
 
   public LoseCondition(int countOfMistakes) {
     this(countOfMistakes, false);

@@ -3,7 +3,8 @@ package org.hawoline.presentation;
 public class Main {
 
   public static void main(String[] args) {
-    new GameStarter().start();
+    GameStarter gameStarter = new GameStarter();
+    gameStarter.start();
   }
 
 }

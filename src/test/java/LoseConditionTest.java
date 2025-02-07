@@ -13,7 +13,7 @@ public class LoseConditionTest {
   }
 
   @Test
-  public void test() {
+  public void testWhenPlayerLoseAfter7Mistakes() {
     LoseCondition mistakesWithOneLoseCondition = loseCondition.addMistake();
     assertEquals(1, mistakesWithOneLoseCondition.getCountOfMistakes());
     assertFalse(mistakesWithOneLoseCondition.isPlayerLose());
@@ -27,9 +27,14 @@ public class LoseConditionTest {
     LoseCondition loseConditionWithFourMistakes = mistakesWithThreeLoseCondition.addMistake();
     assertEquals(4, loseConditionWithFourMistakes.getCountOfMistakes());
     assertFalse(loseConditionWithFourMistakes.isPlayerLose());
-    LoseCondition
-        playerLose = loseConditionWithFourMistakes.addMistake();
-    assertEquals(5, playerLose.getCountOfMistakes());
+    LoseCondition loseConditionWithFiveMistakes = loseConditionWithFourMistakes.addMistake();
+    assertEquals(5, loseConditionWithFiveMistakes.getCountOfMistakes());
+    assertFalse(loseConditionWithFiveMistakes.isPlayerLose());
+    LoseCondition loseConditionWithSixMistakes = loseConditionWithFiveMistakes.addMistake();
+    assertEquals(6, loseConditionWithSixMistakes.getCountOfMistakes());
+    assertFalse(loseConditionWithSixMistakes.isPlayerLose());
+    LoseCondition playerLose = loseConditionWithSixMistakes.addMistake();
+    assertEquals(7, playerLose.getCountOfMistakes());
     assertTrue(playerLose.isPlayerLose());
   }
 }

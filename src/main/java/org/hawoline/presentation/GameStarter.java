@@ -11,17 +11,17 @@ import org.hawoline.domain.LoseCondition;
 import org.hawoline.domain.RightLettersInWord;
 
 public class GameStarter {
+  private WordsRepository wordsRepository = new WordsRepository("words.txt");
+  private List<String> words = wordsRepository.readWords();
+  private Scanner scanner = new Scanner(System.in);
+  private LoseCondition loseCondition;
+  private Keyboard keyboard;
+  private RightLettersInWord rightLettersInWord;
+  private GameState gameState;
+  private GallowsDrawer gallowsDrawer = new GallowsDrawer();
   public void start() {
-    WordsRepository wordsRepository = new WordsRepository("words.txt");
-    List<String> words = wordsRepository.readWords();
-    Scanner scanner = new Scanner(System.in);
-    LoseCondition loseCondition;
-    Keyboard keyboard;
-    RightLettersInWord rightLettersInWord;
-    GameState gameState;
-
     System.out.println("Привет! Добро пожаловать в игру «Виселица»! Твоя задача – угадать английское"
-        + " слово. У тебя есть всего 5 попыток. Готов? Тогда начнем!");
+        + " слово. У тебя есть всего "+ LoseCondition.MAX_MISTAKES_COUNT + " попыток. Готов? Тогда начнем!");
     while(true) {
       loseCondition = new LoseCondition(0);
       keyboard = new Keyboard();
@@ -45,22 +45,30 @@ public class GameStarter {
           char ch = scanner.next().charAt(0);
           GameState newGameState = gameStates.get(statesCount++).nextState(ch);
           if (newGameState.getLoseCondition().isPlayerLose()) {
+            gameStates.clear();
+            gallowsDrawer.draw(newGameState.getLoseCondition().getCountOfMistakes());
             System.out.println("Вы проиграли");
             System.out.println("Загаданное слово: " + newGameState.getRightLettersInWord().getRightWord());
             break;
           }
           if (newGameState.getRightLettersInWord().rightWordEqualsCurrentWord()) {
-            System.out.println("Вы победили");
+            gallowsDrawer.draw(newGameState.getLoseCondition().getCountOfMistakes());
+            System.out.println("Вы победили!");
             break;
           }
           System.out.println("Текущее слово: " + newGameState.getRightLettersInWord().getCurrentWord());
-          System.out.println("Количество ошибок: " + newGameState.getLoseCondition().getCountOfMistakes());
+          gallowsDrawer.draw(newGameState.getLoseCondition().getCountOfMistakes());
           gameStates.add(newGameState);
         } else {
           scanner.next();
+          GameState lastGameState = gameStates.get(statesCount);
+          System.out.println("Текущее слово: " + lastGameState.getRightLettersInWord().getCurrentWord());
+          gallowsDrawer.draw(lastGameState.getLoseCondition().getCountOfMistakes());
           System.out.println("Вы ввели неверную букву.");
         }
+        System.out.println();
       }
+      System.out.println();
     }
     scanner.close();
   }

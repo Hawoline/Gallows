@@ -1,8 +1,5 @@
 package org.hawoline.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public final class Keyboard {
   private final String currentAlphabet;
 
@@ -10,7 +7,7 @@ public final class Keyboard {
     this("abcdefghijklmnopqrstuvwxyz");
   }
 
-  private Keyboard(String currentAlphabet) {
+  public Keyboard(String currentAlphabet) {
     this.currentAlphabet = currentAlphabet;
   }
 
