@@ -46,7 +46,7 @@ public class GameStarter {
           GameState newGameState = gameStates.get(statesCount++).nextState(ch);
           if (newGameState.getLoseCondition().isPlayerLose()) {
             gameStates.clear();
-            gallowsDrawer.draw(newGameState.getLoseCondition().getCountOfMistakes());
+            drawState(newGameState);
             System.out.println("Вы проиграли");
             System.out.println("Загаданное слово: " + newGameState.getRightLettersInWord().getRightWord());
             break;
@@ -56,14 +56,12 @@ public class GameStarter {
             System.out.println("Вы победили!");
             break;
           }
-          System.out.println("Текущее слово: " + newGameState.getRightLettersInWord().getCurrentWord());
-          gallowsDrawer.draw(newGameState.getLoseCondition().getCountOfMistakes());
+          drawState(newGameState);
           gameStates.add(newGameState);
         } else {
           scanner.next();
           GameState lastGameState = gameStates.get(statesCount);
-          System.out.println("Текущее слово: " + lastGameState.getRightLettersInWord().getCurrentWord());
-          gallowsDrawer.draw(lastGameState.getLoseCondition().getCountOfMistakes());
+          drawState(lastGameState);
           System.out.println("Вы ввели неверную букву.");
         }
         System.out.println();
@@ -71,5 +69,10 @@ public class GameStarter {
       System.out.println();
     }
     scanner.close();
+  }
+
+  private void drawState(GameState gameState) {
+    System.out.println("Текущее слово: " + gameState.getRightLettersInWord().getCurrentWord());
+    gallowsDrawer.draw(gameState.getLoseCondition().getCountOfMistakes());
   }
 }

@@ -25,7 +25,7 @@ public class GameStateTest {
   }
 
   @Test
-  public void testLoseCondition() {
+  public void testLoseAfterSevenMistakes() {
     /*
     Алгоритм работы игры:
     1. Вводим букву
@@ -68,7 +68,12 @@ public class GameStateTest {
     GameState fifthFalseLetterTappedState = fourthFalseLetterTappedState.nextState(letterE);
     assertEquals("......", fifthFalseLetterTappedState.getRightLettersInWord().getCurrentWord());
     assertEquals(5, fifthFalseLetterTappedState.getLoseCondition().getCountOfMistakes());
-    assertTrue(fifthFalseLetterTappedState.getLoseCondition().isPlayerLose());
+    assertFalse(fifthFalseLetterTappedState.getLoseCondition().isPlayerLose());
+    final char letterG = 'g';
+    GameState sixthFalseLetterTappedState = fifthFalseLetterTappedState.nextState(letterG);
+    final char letterH = 'h';
+    GameState gameOverState = sixthFalseLetterTappedState.nextState(letterH);
+    assertTrue(gameOverState.getLoseCondition().isPlayerLose());
   }
 
   @Test
