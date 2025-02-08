@@ -64,8 +64,8 @@ public class GallowsDrawer {
   };
 
   public void draw(int countOfMistakes) {
-    for (int row = 0; row < 5; row++) {
-      System.out.println(states[countOfMistakes][row]);
+    for (int rowInOneState = 0; rowInOneState < 5; rowInOneState++) {
+      System.out.println(states[countOfMistakes][rowInOneState]);
     }
   }
 }
