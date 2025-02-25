@@ -1,18 +1,18 @@
 package org.hawoline.domain;
 
 public final class GameState {
-  private final LoseCondition loseCondition;
+  private final Mistakes mistakes;
   private final Keyboard keyboard;
   private final RightLettersInWord rightLettersInWord;
 
-  public GameState(LoseCondition loseCondition, Keyboard keyboard, RightLettersInWord rightLettersInWord) {
-    this.loseCondition = loseCondition;
+  public GameState(Mistakes mistakes, Keyboard keyboard, RightLettersInWord rightLettersInWord) {
+    this.mistakes = mistakes;
     this.keyboard = keyboard;
     this.rightLettersInWord = rightLettersInWord;
   }
 
-  public LoseCondition getLoseCondition() {
-    return loseCondition;
+  public Mistakes getLoseCondition() {
+    return mistakes;
   }
 
   public Keyboard getKeyboard() {
@@ -30,10 +30,10 @@ public final class GameState {
     final Keyboard keyboardWithTappedLetter = keyboard.tapLetter(letter);
     final RightLettersInWord rightLettersInWordAfterTap = rightLettersInWord.performOpenLetter(letter);
     if (rightLettersInWordAfterTap.getCurrentWord().equals(rightLettersInWord.getCurrentWord())) {
-      LoseCondition addedMistake = loseCondition.addMistake();
+      Mistakes addedMistake = mistakes.addMistake(letter);
       return new GameState(addedMistake, keyboardWithTappedLetter, rightLettersInWordAfterTap);
     }
 
-    return new GameState(loseCondition, keyboardWithTappedLetter, rightLettersInWordAfterTap);
+    return new GameState(mistakes, keyboardWithTappedLetter, rightLettersInWordAfterTap);
   }
 }

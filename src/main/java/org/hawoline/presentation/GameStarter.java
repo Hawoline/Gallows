@@ -7,27 +7,27 @@ import java.util.Scanner;
 import org.hawoline.data.WordsRepository;
 import org.hawoline.domain.GameState;
 import org.hawoline.domain.Keyboard;
-import org.hawoline.domain.LoseCondition;
+import org.hawoline.domain.Mistakes;
 import org.hawoline.domain.RightLettersInWord;
 
 public class GameStarter {
   private WordsRepository wordsRepository = new WordsRepository("words.txt");
   private List<String> words = wordsRepository.readWords();
   private Scanner scanner = new Scanner(System.in);
-  private LoseCondition loseCondition;
+  private Mistakes mistakes;
   private Keyboard keyboard;
   private RightLettersInWord rightLettersInWord;
   private GameState gameState;
   private GallowsDrawer gallowsDrawer = new GallowsDrawer();
   public void start() {
     System.out.println("Привет! Добро пожаловать в игру «Виселица»! Твоя задача – угадать английское"
-        + " слово. У тебя есть всего "+ LoseCondition.MAX_MISTAKES_COUNT + " попыток. Готов? Тогда начнем!");
+        + " слово. У тебя есть всего "+ Mistakes.MAX_MISTAKES_COUNT + " попыток. Готов? Тогда начнем!");
     while(true) {
-      loseCondition = new LoseCondition(0);
+      mistakes = new Mistakes();
       keyboard = new Keyboard();
       Random random = new Random();
       rightLettersInWord = new RightLettersInWord(words.get(random.nextInt(words.size())));
-      gameState = new GameState(loseCondition, keyboard, rightLettersInWord);
+      gameState = new GameState(mistakes, keyboard, rightLettersInWord);
       List<GameState> gameStates = new ArrayList<>();
       gameStates.add(gameState);
       System.out.println("------------------------------\n"
@@ -52,7 +52,7 @@ public class GameStarter {
             break;
           }
           if (newGameState.getRightLettersInWord().rightWordEqualsCurrentWord()) {
-            gallowsDrawer.draw(newGameState.getLoseCondition().getCountOfMistakes());
+            gallowsDrawer.draw(newGameState.getLoseCondition());
             System.out.println("Вы победили!");
             break;
           }
@@ -73,6 +73,6 @@ public class GameStarter {
 
   private void drawState(GameState gameState) {
     System.out.println("Текущее слово: " + gameState.getRightLettersInWord().getCurrentWord());
-    gallowsDrawer.draw(gameState.getLoseCondition().getCountOfMistakes());
+    gallowsDrawer.draw(gameState.getLoseCondition());
   }
 }

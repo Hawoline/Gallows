@@ -1,5 +1,7 @@
 package org.hawoline.presentation;
 
+import org.hawoline.domain.Mistakes;
+
 public class GallowsDrawer {
 
   private String[] initialState = {
@@ -63,9 +65,10 @@ public class GallowsDrawer {
       stateWith5Mistakes, stateWith6Mistakes, stateWith7Mistakes
   };
 
-  public void draw(int countOfMistakes) {
+  public void draw(Mistakes mistakes) {
+    System.out.println("Ошибок " + mistakes.getCountOfMistakes() + ":" + mistakes.getMistakes());
     for (int rowInOneState = 0; rowInOneState < 5; rowInOneState++) {
-      System.out.println(states[countOfMistakes][rowInOneState]);
+      System.out.println(states[mistakes.getCountOfMistakes()][rowInOneState]);
     }
   }
 }
