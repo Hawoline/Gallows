@@ -4,6 +4,7 @@ import org.hawoline.domain.Mistakes;
 
 public class GallowsDrawer {
 
+  private static final int ROW_COUNT_IN_STATE = 5;
   private String[] initialState = {
       "|---",
       "|",
@@ -67,8 +68,9 @@ public class GallowsDrawer {
 
   public void draw(Mistakes mistakes) {
     System.out.println("Ошибок " + mistakes.getCountOfMistakes() + ":" + mistakes.getMistakes());
+    String[] picture = states[mistakes.getCountOfMistakes()];
     for (int rowInOneState = 0; rowInOneState < 5; rowInOneState++) {
-      System.out.println(states[mistakes.getCountOfMistakes()][rowInOneState]);
+      System.out.println(picture[rowInOneState]);
     }
   }
 }

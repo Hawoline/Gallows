@@ -3,12 +3,12 @@ package org.hawoline.domain;
 public final class GameState {
   private final Mistakes mistakes;
   private final Keyboard keyboard;
-  private final RightLettersInWord rightLettersInWord;
+  private final WordWithMask wordWithMask;
 
-  public GameState(Mistakes mistakes, Keyboard keyboard, RightLettersInWord rightLettersInWord) {
+  public GameState(Mistakes mistakes, Keyboard keyboard, WordWithMask wordWithMask) {
     this.mistakes = mistakes;
     this.keyboard = keyboard;
-    this.rightLettersInWord = rightLettersInWord;
+    this.wordWithMask = wordWithMask;
   }
 
   public Mistakes getLoseCondition() {
@@ -19,8 +19,8 @@ public final class GameState {
     return keyboard;
   }
 
-  public RightLettersInWord getRightLettersInWord() {
-    return rightLettersInWord;
+  public WordWithMask getRightLettersInWord() {
+    return wordWithMask;
   }
 
   public GameState nextState(char letter) {
@@ -28,12 +28,16 @@ public final class GameState {
       return this;
     }
     final Keyboard keyboardWithTappedLetter = keyboard.tapLetter(letter);
-    final RightLettersInWord rightLettersInWordAfterTap = rightLettersInWord.performOpenLetter(letter);
-    if (rightLettersInWordAfterTap.getCurrentWord().equals(rightLettersInWord.getCurrentWord())) {
-      Mistakes addedMistake = mistakes.addMistake(letter);
-      return new GameState(addedMistake, keyboardWithTappedLetter, rightLettersInWordAfterTap);
+    final WordWithMask wordWithMaskAfterTap = wordWithMask.performOpenLetter(letter);
+    if (letterNotOpened(wordWithMaskAfterTap.getCurrentWord())) {
+      return new GameState(mistakes.addMistake(letter), keyboardWithTappedLetter,
+          wordWithMaskAfterTap);
     }
 
-    return new GameState(mistakes, keyboardWithTappedLetter, rightLettersInWordAfterTap);
+    return new GameState(mistakes, keyboardWithTappedLetter, wordWithMaskAfterTap);
+  }
+
+  private boolean letterNotOpened(String word) {
+    return word.equals(wordWithMask.getCurrentWord());
   }
 }

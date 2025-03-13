@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import org.hawoline.domain.RightLettersInWord;
+import org.hawoline.domain.WordWithMask;
 import org.hawoline.domain.Mistakes;
 import org.hawoline.domain.GameState;
 import org.hawoline.domain.Keyboard;
@@ -13,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class GameStateTest {
   private Mistakes mistakes;
   private Keyboard keyboard;
-  private RightLettersInWord rightLettersInWord;
+  private WordWithMask wordWithMask;
   private GameState gameState;
   private static final String SOME_FOOD_WORD_FOR_TEST = "potato";
 
@@ -21,8 +20,8 @@ public class GameStateTest {
   void setUp() {
     mistakes = new Mistakes();
     keyboard = new Keyboard();
-    rightLettersInWord = new RightLettersInWord(SOME_FOOD_WORD_FOR_TEST);
-    gameState = new GameState(mistakes, keyboard, rightLettersInWord);
+    wordWithMask = new WordWithMask(SOME_FOOD_WORD_FOR_TEST);
+    gameState = new GameState(mistakes, keyboard, wordWithMask);
   }
 
   @Test
